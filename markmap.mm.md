@@ -359,6 +359,35 @@ markmap:
 
 # Elastic Network Interface (ENI)
 
+## ENI simplified
+- virtual network card
+
+## ENI Key Details
+- low-budget, high-availability
+- Enhanced Networking ENI for high network throughput
+- Enhanced Networking ENI uses signle root I/O virtualization
+- SR-IOV means higher I/O and lower throughput and higher bandwidth, high packet per second performance, consistently lower inter-instance latencies
+- no extra charge for enhanced networking ENI, but not avaibleable on all ec2
+- ENI can be attached when EC2 is running, stopped or being lauched
+- ENI can be moved to different EC2
+- Use Elastic Fabric Adaptor (EFA) for machine learning and high performance computing
+- EFA support OS-bypass
+
+# Security Groups
+## Security Groups Simplified
+- controle access with EC2
+- Act as virtual firewall
+- on instance level
+
+## Security Groups Key Details
+- Controle in/out bound tracffic for EC2 instances, typically it will have port in it.
+- NACLs for subnets, and typicaly it will have IP in it
+- stateful
+- rules are based on ALLOWs
+- everything is blocked by default
+- can't be shared between VPCs
+- regional and can span AZs, but can't be cross-regional
+
 
 
 # Mindmap
