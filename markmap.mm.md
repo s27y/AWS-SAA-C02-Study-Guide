@@ -232,6 +232,133 @@ markmap:
 - Stop and start when there is a system status issue.
 
 ## EC2 Instance Pricing
+- On-Demand instances
+  - fixed rate by the hour or second
+  - no long-term commitment
+- Reserved instances
+  - long-term commitment (1 or 3 years contract)
+  - up to 75% discount compared to On-Demand
+- Spot instances
+  - bid for spare computing capacity
+  - up to 90% discount compared to On-Demand
+  - can be terminated at any time
+
+## Standard Reserved Instances vs. Convertible Reserved Instances vs. Scheduled Reserved
+- Standard Reserved Instances
+  - 75% discount
+  - cannot be moved between regions
+- Convertible Reserved Instances
+  - 54% discount
+  - can be moved between regions
+  - can be changed to different instance types
+- Scheduled Reserved Instances
+  - launch within time window you reserve
+
+## EC2 Instance Lifecycle
+- Pending
+  - not billed
+- running
+  - billed
+- stopping
+  - not billed if preparing to stop
+  - billed if preparing to hibernate
+- stopped
+  - not billed
+- sutting-down
+- terminated
+
+## EC2 Security
+- You are responsisble for management of the guest OS and anything within the OS and the config of the AWS
+-Termination protection is disabled by default
+- public-key (key pair) is used to encrypt the passed password
+- root volume can be encrypted at creation time
+- additional volumes can be encrypted using EBS encryption
+- EBS root volume will be deleted with instance however additional volumes will not be deleted.
+
+## EC2 Placement Groups
+- it balances the tradeoff between risk tolerance and network performance
+- Clustered Placement Group
+  - single AZ, for apps need the lowest latency and highest network throughput
+  - only certain instances type can be launched
+- Spread Placement Group
+  - seperate racks, separate power and network
+  - multiple AZ, for apps that have a small number of critical instances that should be kept separate from each other
+  - can span multiple AZ
+- Partitioned Placement Group
+  - multiple EC2 within a single partition, failures only affect a signle partition
+- placement group name within your AWS must be unique
+- existing EC2 can be moved into a placement group via CLI or AWS SDK
+
+
+# Elastic Block Store (EBS)
+
+## EBS simplifed
+- durable, block-level storage to be attached to a single EC2
+
+## EBS Key Details
+- life cycle differs from EC2 instance
+- is automatically replicated within its AZ
+- 5 types
+  1. General Purpose SSD (GP2)
+  2. Provisioned IOPS SSD (IO1) - build for speed
+  3. Throughput Optimized HDD (ST1) - built for larger data loads
+  4. Code Hard Disk Drive (SC1) - lowest cost storage, built for less frequently accessed workloads
+  5. Magenetic
+- 5 9s durability
+- EBS need to be in the same AZ as the EC2 instance
+- can be attahced to a single EC2
+- snapshots are point-in-time copies of EBS
+- The size and type of EBS volumes can be changed on the fly,
+
+## SSD vs. HDD
+- SSD
+  - built for transactional workloads
+  - frequent read/write
+  - IOPS heavy
+- HDD
+  - built for large streaming workloads
+  - throughout heavy
+  - MB/s heavy
+
+
+## EBS Snapshots
+- point in time copies of volumes
+- constrained to the region it was created
+- only capture the state of the change from when the last snapshot was taken
+- the first snapshot takes some time to create
+- happens asynchronously, volume can be used as normal
+- best pratices to stop the running instance for a clean snapshot for a future root device
+- snapshot can be used to move ec2 instance and volume to another az/region
+- can't delete a snapshot of an ebs vloume that is used as the root device of a registered AMI
+
+## EBS Root Device Storage
+- EBS-backed or Instance store-backed
+- EBS-backed
+  - root device is an EBS volume
+  - default
+  - root device is persistent
+  - can be stopped and started
+  - can be changed on the fly
+- Instance store-backed
+  - very high IOPS
+  - root device is an instance store volume (from an S3 stored template)
+  - root device is ephemeral
+  - cannot be stopped and started
+  - cannot be changed on the fly
+  - secondary volumes backed by instance store must be installed during original provisioning
+- When to use one over the other
+  - EBS for DB data, critial logs and application configs
+  - Instance store for temporary data, buffers, caches, scratch data, and other temporary content
+
+## EBS Encryption
+- AWS KMS CMK to create encrypted volumes and snapshots
+- AES-256 encryption
+- can only share unencrypted snapshots
+- volume created from encrypted snapshot are encrypted automatically
+- root device of EC2 can be encrypted at provisioning time
+
+# Elastic Network Interface (ENI)
+
 
 
 # Mindmap
