@@ -389,6 +389,80 @@ markmap:
 - regional and can span AZs, but can't be cross-regional
 
 
+# Web Application Firewall (WAF)
+
+## WAF Simplified
+- allow or block traffic that are bound for cloudfront, ALB, API Gateway, ec2, and other L7 entry points
+- use security rules to block common attack patterns, for example SQL injection or cross-site scripting and rules that filter out specific traffic patterns that you define
+
+
+## WAF Key Details
+- L7 firewall
+- monitor granular web-based conditions like URL query string parmeters
+- allow all requests except the ones you specify
+- block all requests except the ones you specify
+- count the requests that match the properties that you specify
+
+## WAF Protection Capabilities
+- request cahacteristics that can be used to limit access
+- ip address
+- country
+- header
+- strings in request matches a regex parttern
+- length of the request
+- any presence of sql code 
+- any presence of script code
+- WAF added the advantage of protecting from its outermost border
+
+
+# CloudWatch
+
+## CloudWatch Simplified
+- monitor AWS resources and applications
+
+## CloudWatch Key Details
+- collects monitoring and operational data in the form of logs, metrics and events
+- ec2, only monitor host level metrics and status from the underlying hypervisor
+- ec2, default to 5 minutes, but can have 1 minute with detailed monitoring
+- cloudwatch agent can be installed on ec2 to collect custom metrics
+- cloudwatch is all about performance
+- cloudtrail is all about auditing
+
+## cloudwathc logs
+## cloudwatch events
+## cloudwatch alarms
+## cloudwatch metrics
+## cloudwatch dashboards
+
+# CloudTrail
+
+## CloudTrail Simplified
+- enables governance, compliance, operational auditng and risk auditing of your aws account
+- records all api calls made within your aws account
+- regional, but can be aggregated across regions and accounts
+
+## CloudTrail Key Details
+- logs api calls or activites
+- stores last 90d of events in event history, default no additional charge
+- two types of events, management events(default on) and data events(default off)
+- log files are encrypted using aws s3 server-side encryption. it can be encrypted using aws kms
+
+# Elastic File System (EFS)
+
+## EFS Simplified
+- EFS  = AWS elastic NFS
+- automatically and instantly scales
+
+## EFS Key Details
+- EFS can be attached to multiple ec2 instances
+- uses NFSv4 protocol, need open EC2 security group
+- pay per use, no pre-provisioning required
+- can scale up to petabytes to support thousands of concurrent NFS
+- read after write consistency
+- data is stored across multiple AZs within a region
+
+
+
 
 # Mindmap
 
