@@ -461,6 +461,137 @@ markmap:
 - read after write consistency
 - data is stored across multiple AZs within a region
 
+# Amazon FSx for Windows
+
+## Amazon FSx for Windows Simplified
+- a fully managed native Microsoft File System
+
+## Amazon FSx for Windows Key Details
+- solely for Microsoft-based application
+- SMB-based file storage
+- on-premise server can connect to FSx
+- Microsoft AD can be used to authenticate
+- encrypt data at rest and in-transit
+- single AZ or multi-AZ
+- SSD or HDD
+- daily automated backups and on demand backup
+- remove duplicated content and compresses common content
+
+# Amazon FSx for Lustre
+
+## Amazon FSx for lustre Simplified
+- open source Lustre file system for high performance computing
+- up to hundreds of gigabytes per second of throughput, millions of IOPS, sub-millisecond latencies
+
+## Amazon FSx for Lustre Key Details
+- Linux system
+- typically run on compute clusters
+- can store and retreve data directly on S3
+
+
+# Relational Database Service (RDS)
+
+## RDS Simplified
+- managed service
+
+## RDS Key Details
+- Six different flavors
+  - SQL Server
+  - Oracle
+  - MySQL Server
+  - PostgreSQL
+  - MariaDB
+  - Aurora
+- RDS is a DB engine which DBs sit on top of
+- Read replication
+- Multi-AZ for high availability
+- runs on VM that you do not have access to.
+- AWS does security and maintence
+- SQS queue can be used to store pending db writes
+
+## RDS Multi-AZ
+- primary DB and synchronouly replications in diferent AZ
+- connect to RDS uses DNS address. parmary DB fails, multi-az automaticlly update the DNS to point it to secondary
+- support all DB flavor except aurora, as aurora is complete fault-tolerant
+- high availability across az and not regions
+- force failover by rebooting primary instance
+- backups are taken from the standby
+
+## RDS Read Replicas
+- up to 5 read replications
+- supported for all DB on top of RDS
+- use DNS address for connection. write is received by master also passed onto secondary
+- if master failed, no automatic failover.
+- promote read replicas to be their own production db
+- read replica has its own DNS endpoint
+- auto backups must be enabled to use read replicas
+- works with Multi-AZ, or have it in an entirely separate region
+-
+
+## RDS Backups
+- Automate backups
+  - any point in time within 35 days
+  - freely up to the size of your actual db
+  - removed when DB is removed
+- DB snapshots
+  - done manully
+  - will retain enven the original RDS is terminated
+- Restore a DB via automated backups or DB snapshots results an entirely new RDS instance
+
+## RDS Security
+- IAM DB authentication
+  - works with MySQL and PostgreSQL
+  - authentication token
+    - lifetime of 15 minutes
+  - traffic to/fram DB is SSL encrypted
+  - centrally manage access in IAM
+- encryption at rest supprot all DB, AWS KMS
+- encryption can be enable only when you create it
+
+## RDS Enhansced Monitoring
+- metrics in cloudwatch log for 30 days
+- agent based
+
+# Aurora
+
+## Aurora Simplified
+- MySQL/PostgreSQL compatible RDBMS
+
+## Aurora Key Details
+- automatic failover
+- typically created as a cluster of DB instances
+- default 2 copies in 3 availability zone, loss upto 2 without impact wirte, 3 without impact read
+- self-healing, data blacks and disk are constiuously scanned for error
+- Aurora relication can be both a standy and a target for read traffic
+- up to 15 copies
+- automated failover is only possible with Aurora read replication
+- backup doesn't impact performance
+- to migrating rds db into aurora db
+  - create a read replica of a rds mariadb/mysql db as aurora db
+  - promote aurora db into prod instance
+  - delete old db
+- from 10GB to 128TB, Computing up to 32vCPUs and 244GB memeory
+
+## Aurora Serverless
+
+- for infrequent, intermittent, and unpredictable workloads
+- pay per invocation
+
+## Aurora Cluster Endpoints
+- map each connection to the appropriate instance or group of instances based on use case
+
+## Aurora Reader Endpoints
+- up to 15 read replicas
+
+# DynamoDB
+## DynamoDB Simplifed
+
+
+
+
+
+
+
 
 
 
