@@ -639,6 +639,36 @@ markmap:
 
 # Route53
 
+## Route53 Simplified
+- DNS service
+- domain registration
+- DNS routing
+- health checking
+
+## Route53 Key Details
+- SOA (Start of Authority) record
+  - domain name
+  - email of admin
+  - domain serial number
+  - TTL
+- NS (Name Server) record
+  - used by the Top Level Domain hosts(.org, .com, .uk)
+  - domain name
+  - name server
+  - TTL
+- Browser -> TLD -> SOA -> DNS
+- A record
+  - hostname to IPv4
+- AAAA record
+  - URL -> IPv6
+- CName
+  - hostname -> hostname
+  - can't be used for naked domain names
+- Alias
+ - URL -> AWS resource
+- PTP
+  - IPv4 -> hostname
+
 
 
 
