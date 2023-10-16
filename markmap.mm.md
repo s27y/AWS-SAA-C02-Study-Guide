@@ -587,9 +587,57 @@ markmap:
 ## DynamoDB Simplifed
 
 
+## DynamoDB Accelerator (DAX)
+- managed, HA, in-memory cache
+- up to 10-node cluster
+- one to many or many to one for DAX cluster for DDB tables
 
+## DynamoDB Streams
+- an ordered flow oof information about changes to iteams in DDB table
+- capture data modification events
+- it can trigger lambda function
 
+## DynamoDB Global Tables
+- multi-region, multi-master
+- replication latency < 1 second
 
+# Redshift
+
+## Redshift Simplified
+- manged PT-scale data warehouse
+
+## Redshift Key Details
+- single-AZ
+- consists of leader node and compute nodes(up to 128)
+- for OLAP
+- add remove nodes on the fly
+- replication to different region
+- HA cluster requires 3 copies of your data, one in redshit, other in S3
+- billed for 
+  - computing nodes hours
+  - backups
+  - data transfer within VPC
+- locked by default using security group
+
+## Redshift Spectrum
+- run SQL queries against exabytes of data in S3
+- no loading or ETL required
+- cluster and data must in same region
+- read only on s3 data
+
+## Redshift Enhanced VPC Routing
+-  force all COPY and UNLOAD traffic between cluster and data in VPC
+
+# ElastiCache
+## ElastiCache Simplified
+- in-memory data store
+
+## Elasticache Key Details
+- fully managed Redis and Memchched
+- Memcached for simple caching purposes with multi-threaded performance
+- it scales
+
+# Route53
 
 
 
