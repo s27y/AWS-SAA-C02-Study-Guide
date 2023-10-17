@@ -668,8 +668,76 @@ markmap:
  - URL -> AWS resource
 - PTP
   - IPv4 -> hostname
+- health checks to send sns
+
+## Route53 Routing Policies
+- Simple
+- Weidghted
+  - split traffic based on different weights assigned
+- Latency-based
+- Failover
+  - active-passive
+- Geolocation Routing
+- Geo-proximity
+  - similar to Geolocation routing, but you can choose to send more or less traffic
+  - must enable route53 traffic flow
+- Multivalue
+  - similar to simple routing but with a health check on each record set
 
 
+# ELB
+## ELB Simplified
+
+## ELB Key Details
+- regional service
+- it is resolved using DNS
+- inService or OutOfService status, health check
+- 504 error means application issue
+- Application LBs
+  - L7
+  - HTTP(S)
+  - path-based routing
+  - host-based routing
+  - TLS termination
+- Network LBs
+  - L4
+  - TCP tracffic
+  - high performance, low latency
+  - support static ip
+- Classic LBs
+  - L4 and L7
+  - HTTP, HTTPS, TCP
+  - EC2-Classic
+
+## ELB Advanced Features
+- X-Forwarded-For header for backend server to know the origin of the traffic
+- Sticky sessions 
+- Path Patterns
+
+## ELB Cross Zone Load balancing
+- distribute traffic evenlly across different AZs
+
+## ELB Security
+- support SSL/TLS & HTTPS termination
+- Perfect Forward Secrecy
+  - key changes over time
+- SNI support ALB or CloudFront
+
+
+# Auto scaling
+## Key Details
+- Components
+  - Groups
+    - groups of EC2 or DB
+  - Configuration Templates
+  - Scaling Options
+- auto scale
+- can maintain current instance levels
+- support manual intervention
+- scheduled scaling
+- predictive scaling (ML)
+- can suspend and then resume scaling process for debugging
+- lunch configuration can't be changed after it's creation
 
 
 
