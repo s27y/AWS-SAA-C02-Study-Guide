@@ -739,6 +739,71 @@ markmap:
 - can suspend and then resume scaling process for debugging
 - lunch configuration can't be changed after it's creation
 
+## Auto Scaling Default Termination Policy
+- default to terminate a stopped instance
+  - instances in multiple AZ, terminate from AZ with most instances
+  - instances in same AZ, terminate the instance with the oldest launch configuration
+  - terminate instance closest to the next billing hour
+
+## Auto scaling cooldown period
+- ensure it doesn't launch or terminate additional instances before the previous scaling activity takes effect
+- default 300 seconds
+
+# Virtual Private Cloud (VPC)
+## VPC Simplicfied 
+- create logically isolated section of AWS
+
+## VPC Key Details
+- complete control of your own network, ip, subnet, route table, network gateways, and security settings
+- default VPC on aws allow internet access
+- create integer gateway for internet access
+- IGW need be assigned to a VPC
+- a custom VPC comes with
+  - route table
+  - NACL
+  - secuirty group
+- default ip range /16
+- all instances within VPC has a private IP
+- launch an instance in subnet with public access via internet gateway. public and private ip is created
+
+
+## VPC Subnets
+- aws reserve 5 ip address within subnet, first 4 and last 1
+
+## Network Access Control Lists
+- stateless
+- start ffrom the lowest number to high number
+- default NACL allow all inbound and outbound traffic
+- new NACL default rules deny all in and out
+
+## NAT instances vs. NAT Gateways
+- internet gatway is for instance in VPC that already have a public ip
+- NAT is for instance in VPC that don't have a public ip
+- NAT instances
+  - individual EC2 instance
+  - HA is not built-in
+- NAT gateway
+  - managed service
+- disable source/destination check when using NAT instance
+
+
+## Bastion Hosts
+- jump box
+- reduce attack
+- allow remote access to private subnet
+- a small EC2 instance 
+
+## Route Tables
+- best practice is to ensure default route table is private
+- can be used to configure access to AWS endpoint
+
+## Internet Gateway
+- each ec2 instance doesn't know it's public ip, only igw knows it's public ip
+- one igw per VPC
+
+## Virtual Private Networks (VPNs)
+- connect on-prem to AWS
+
 
 
 # Mindmap
