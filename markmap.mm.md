@@ -772,7 +772,7 @@ markmap:
 
 ## Network Access Control Lists
 - stateless
-- start ffrom the lowest number to high number
+- start from the lowest number to high number
 - default NACL allow all inbound and outbound traffic
 - new NACL default rules deny all in and out
 
@@ -799,10 +799,121 @@ markmap:
 
 ## Internet Gateway
 - each ec2 instance doesn't know it's public ip, only igw knows it's public ip
-- one igw per VPC
+- one IGW per VPC
 
 ## Virtual Private Networks (VPNs)
 - connect on-prem to AWS
+
+## AWS DirectConnect
+- connect on-prem and AWS through a private tunnel
+
+## VPC Endpoints
+- connect VPC to supported AWS service, traffic stay within AWS
+- Gateway Endpoint
+   - point traffic to a route table entry
+   - free
+- Interface Endpoints
+  - it uses AWS PrivateLink and private IP
+  - ues ENI in VPC
+
+## AWS PrivateLink
+- private connectivity between different VPCs, AWS services
+- connects your AWS services with other AWS service through a non-public tunnel
+
+
+## VPC Peering
+- connect one VPC wither another via a direct network route using private IPs
+- cannot do transitive peering
+- can't do peering
+  - overlapping cidr  block
+  - transitive peering
+  - edge to edge routing
+- can peer across regions
+
+## VPC flow log
+- capture ip info for all traffic flowing in and out of VPC
+- stored in s3 bucket, view in cloudwatch
+- traffic flow
+  - in and out of vpc
+  - in and out of subnet
+  - in and out of ec2 network interface
+- can't change existing flow log config
+- not monitored
+  - query for instance metadata
+  - dhcp
+  - query to aws dns
+
+## AWS Global Accesserator
+- reduce hops to your aws service
+
+# Simple Queuing Service (SQS)
+## SQS Simplified
+- a message queue that can store messages before another service process them
+
+## SQS Key Details
+- standard
+  - may out of order
+  - delivered at least once
+- FIFO
+  - guarantee order
+  - exactly-once
+  - limited to 300 transactions per second
+- message in queue can be kept from 1 minutes to 14 days, default to 4 days
+- visibility timeout
+  - when a message is send to a reader, the message is temporarily marked invisble, if the message is not fully processed within the time limit, the message becomes vidible again
+  - max is 12 hour
+
+## SQS Polling
+- Long-polling
+  - only return from the queue when there is a message
+  - or it will wait until timeout
+- Short-polling
+  - retrun immediately either there is a message or not
+- receivedMessageWaitTimeSeconds is the attributes to determines Short or Long
+- polling incur a charge
+
+# Simple Workflow Service (SWF)
+## SWF Simplified
+- coordinate work across distributed application
+
+## SWF Key Details
+- a way of coordinating tasks between app and people
+- Actor
+  - workers that trigger the begining of a workflow
+- Decider
+  - workers that control the flow of the workflow once it's been started
+- Activity Worker
+  - workers that actually carry out the task
+- workflow execution can last up to one year
+
+# Simple Notification Service (SNS)
+## SNS Simplified
+- pushed-based message service.
+
+## SNS Key Details
+- mainly used to send alarms or alerts
+- high-throughput, push-based, many-to-many messaging
+- SNS topcs
+  - fan out message to large number of subscrber
+  - via SQS, lambda, http/s webhooks, mobile push, sms and email
+- topcis used to group multiple recipient
+
+# Kinesis
+## Kinesis Simplifed
+- collect, process and analyze real-time, streaming data
+- video, audio, application logs, website clickstreams, IoT telemetry
+
+## Kinesis Key Details
+- Kinesis Streams
+  - retain from one day up to 7 days
+  - data is contained within shards
+- Kinesis Firehose
+  - load stream data into data stores and analytics tools
+  - capture, transform, and load streaming data to different source
+- Kinesis Analytics
+  - work with two above, can analyze data on the fly
+- partition key for organize data by shard
+-
 
 
 
