@@ -912,10 +912,107 @@ markmap:
   - capture, transform, and load streaming data to different source
 - Kinesis Analytics
   - work with two above, can analyze data on the fly
-- partition key for organize data by shard
--
+- partition key
+  - organize data by shard
+  - maintain order within shard
+
+# Lambda
+## Lambda Simplified
+- run code without provisioning or managing servers
+
+## Lambda Key Details
 
 
+# API Gateway
+## Key Details
+- create, publish, maintain, monitor, and secure APIs at any scale
+- pay for api calls received and amount of data transfered out
+- provide throttling
+  - request over limit receive 429
+- cache is supported
+- support AWS certificate manager
+
+## Cross Origin Resource sharing
+- enforced on client side
+
+# CloudFormation
+## Simplified
+- tool for provisioning cloud-based env
+
+# Key Details
+- create, update, delete infra
+- template is json or yaml
+- a full CF setup is called a stack
+- Resources field is the only mandatory field
+
+# Elastic Beanstalk Simplifed
+
+# AWS Organization
+## Simplified
+- accoutn management service
+## Key Details
+- root account to manage billing, separate accounts to deploy resource
+-centrally govern envrionment
+- Organizational Units (OU) to group accounts
+- Attach policies to OU
+- Service Control Policies (SCP) to restrict access to certain services
+
+# Amazon Cognito
+- Web Identity Federation
+- authenticate with identity provider, get token, exchange token for temporary AWS credentials
+- Cognito User Pools
+  - user directory
+  - sign up and sign in
+  - can be used with API Gateway
+- Cognito Identity Pools
+  - provide AWS credentials to users
+  - can be used with Cognito User Pools
+  - can be used with Facebook, Google, Amazon, Twitter, Digits, and any OpenID Connect
+
+# AWS Resrouce Access Manager
+- a service enables you to share AWS resrouces with any AWS account
+- no need to create duplicate resources in multiple accounts
+
+# Athena
+- interactive query service for data stored in S3
+- SQL
+
+# AWS Macie
+- ML-powered data security and privacy service
+- discover, classify, and protect sensitive data (PII)
+
+# AWS KMS
+- managed service that makes it easy for you to create and control the encryption keys used to encrypt your data
+
+# AWS Secrets Manager
+- helps you protect secrets needed to access your applications, services, and IT resources
+
+# AWS STS
+- create and provide trusted users with temporary security credentials
+
+# OpsWOrks
+- AWS managed configuration management service for  Chef and Puppet
+
+# Elastic Transcoder
+
+# AWS Directory Service
+- Amazon Cloud Directory, Microsft AD, AD Connector, Simple AD
+
+# IoT Core
+- managed service that lets connected devices easily and securely interact with cloud applications and other devices
+
+# AWS Farget
+- serverless compute for containers
+- ECS and EKS
+
+# AWS EKS
+- fully manage K8s 
+
+# Amazon MQ
+- managed message broker service for Apache ActiveMQ
+
+# AWS Config
+- assess, audit, and evaluate the configurations of your AWS resources
 
 # Mindmap
 
