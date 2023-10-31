@@ -6,6 +6,7 @@ markmap:
 # Identity Access Management (IAM)
 
 ## IAM Simplified
+- Uni
 - Centralized control hub within AWS
 - Integrates with all other AWS Services
 - Share access at various permission levels
@@ -40,6 +41,12 @@ markmap:
 - IAM Access Advisor (user level)
 - IAM Credentials Report (account level)
 
+## Secure AWS Root Account
+- Enable MFA on root account
+- Create admin group for admin users, assign appropriate permissions to this group
+- Create user account for admin
+- Add users to amdin group
+
 
 # Simple Storage Service (S3)
 
@@ -48,6 +55,7 @@ markmap:
 - Object storage: data, metadata, unique identifier
 - Suitable for hosting files, not databases
 - Key differences from block storage
+- upto 5TB
 
 ## S3 Key Details
 - Objects: key, value, version ID, metadata
@@ -58,7 +66,7 @@ markmap:
 - Main features: tiered storage, lifecycle, versioning, encryption, MFA delete, access control
 - Charges by: storage size, requests, tiers, data transfer, transfer acceleration, replication
 - Bucket policies secure data at bucket level
-- Access control lists secure data at the more granular object level
+- Object Access control lists(ACLs) secure data at the more granular object level
 - All newly created buckets are private (default)
 - S3 access logs can be shipped into another bucket in either current or separate account
 - To share S3 bucket across AWS accounts
@@ -79,6 +87,7 @@ markmap:
     - Standard: 3 - 5 hours
     - Bulk: 5 - 12 hours
 - S3 Deep Glacier: lowest-cost storage
+- S3 Glacier Instant Retrieval
 
 ## S3 Encryption
 - Encryption in transit (SSL/TLS)
@@ -87,12 +96,23 @@ markmap:
   - S3 Managed Keys
   - AWS KMS
   - Customer Provided Keys
+- Can enforcing encryption with a bucket policy
 
 ## S3 Versioning
 - Stores all versions of an object
 - Useful for backup, rollbacks
+- cannot be disabled once enabled
 - Integrates with lifecycle rules
 - MFA delete for added security
+
+## S3 Object Lock and Glacier Vault Lock
+- S3 Object Lock to store objects using a write once, read many (WORM) model
+- Governace mode
+  - user can't overrite or delete an obj or alart it's lock unless they have special permissions
+- Compliance mode
+  - stop anyone to overrite or delete an object
+- S3 Galcier Vault Lock
+  - apply to Glacier
 
 ## S3 Lifecycle Management
 - Automates data movement between storage tiers
@@ -129,6 +149,11 @@ markmap:
 - Retransimit failed part without affecting other parts
 - Parallelize downloads using byte-range fetches
 
+## S3 Select
+- Pull out only the data you need from an object
+- Works with Glacier too
+- S3 byte-range fetches
+
 ## S3 Pre-signed URLs
 - A pre-signed URL grant time-limited permission to download or view private S3 object
 - When create a pre-signed URL
@@ -138,15 +163,17 @@ markmap:
   - HTTP method
   - expiration date and time
 
-## S3 Select
-- Pull out only the data you need from an object
-- Works with Glacier too
+## S3 Replication
+- replicate objects from one to anther
+- existing objects are not replicated automatically
+- Delete markers are not replicated by default
+
 
 # CloudFront
 
 ## CloudFront Simplified
 - AWS CDN service
-- Cache content at edge location (catche endpoints)
+- Cache content at edge location (catch endpoints)
 - Cache origin,  can be an EC2 instance, an S3 bucket, an Elastic Load Balancer or a Route 53 config
 
 ## CloudFront Key Details
@@ -242,6 +269,10 @@ markmap:
   - bid for spare computing capacity
   - up to 90% discount compared to On-Demand
   - can be terminated at any time
+- Dedicated
+  - a physical EC2 server dedicated for your use
+  - mainly for server bound licenses or complicance requirements
+    - Windows Server, Microsoft SQL Server, SUSE Linux Enterprise Server
 
 ## Standard Reserved Instances vs. Convertible Reserved Instances vs. Scheduled Reserved
 - Standard Reserved Instances
@@ -254,6 +285,7 @@ markmap:
 - Scheduled Reserved Instances
   - launch within time window you reserve
 
+
 ## EC2 Instance Lifecycle
 - Pending
   - not billed
@@ -264,12 +296,12 @@ markmap:
   - billed if preparing to hibernate
 - stopped
   - not billed
-- sutting-down
+- shutting-down
 - terminated
 
 ## EC2 Security
 - You are responsisble for management of the guest OS and anything within the OS and the config of the AWS
--Termination protection is disabled by default
+- Termination protection is disabled by default
 - public-key (key pair) is used to encrypt the passed password
 - root volume can be encrypted at creation time
 - additional volumes can be encrypted using EBS encryption
@@ -286,9 +318,23 @@ markmap:
   - can span multiple AZ
 - Partitioned Placement Group
   - multiple EC2 within a single partition, failures only affect a signle partition
+  - HBase, HDFS, Cassandra
 - placement group name within your AWS must be unique
 - existing EC2 can be moved into a placement group via CLI or AWS SDK
+- only X optimiazed instance types can be launched in a placement group
+- can move an existing instance into a placement group - when they are stopped
 
+## vCenter on AWS using VMware
+
+## EC2 Hibernation
+- preserves the in-memory RAM on persistent storage
+- fater to boot up
+- instace Ram must be less than 150GB
+- cannot be hibernated for more than 60 days
+
+## AWS Outposts
+- extend AWS to your data center
+- AWS outpost rack and servers
 
 # Elastic Block Store (EBS)
 
@@ -299,10 +345,14 @@ markmap:
 - life cycle differs from EC2 instance
 - is automatically replicated within its AZ
 - 5 types
-  1. General Purpose SSD (GP2)
-  2. Provisioned IOPS SSD (IO1) - build for speed
+  1. General Purpose SSD
+    - gp2
+    - gp3 - faster
+  2. Provisioned IOPS SSD - build for speed
   3. Throughput Optimized HDD (ST1) - built for larger data loads
+    - cannot be a boot volume
   4. Code Hard Disk Drive (SC1) - lowest cost storage, built for less frequently accessed workloads
+    - cannot be a boot volume
   5. Magenetic
 - 5 9s durability
 - EBS need to be in the same AZ as the EC2 instance
@@ -322,6 +372,7 @@ markmap:
 
 
 ## EBS Snapshots
+- stored in S3
 - point in time copies of volumes
 - constrained to the region it was created
 - only capture the state of the change from when the last snapshot was taken
@@ -329,7 +380,7 @@ markmap:
 - happens asynchronously, volume can be used as normal
 - best pratices to stop the running instance for a clean snapshot for a future root device
 - snapshot can be used to move ec2 instance and volume to another az/region
-- can't delete a snapshot of an ebs vloume that is used as the root device of a registered AMI
+- can't delete a snapshot of an EBS vloume that is used as the root device of a registered AMI
 
 ## EBS Root Device Storage
 - EBS-backed or Instance store-backed
@@ -364,8 +415,10 @@ markmap:
 
 ## ENI Key Details
 - low-budget, high-availability
-- Enhanced Networking ENI for high network throughput
-- Enhanced Networking ENI uses signle root I/O virtualization
+- Enhanced Networking ENI 
+  - for high network throughput
+  - uses signle root I/O virtualization
+  - between 10 Gbps AND 100 Gbps
 - SR-IOV means higher I/O and lower throughput and higher bandwidth, high packet per second performance, consistently lower inter-instance latencies
 - no extra charge for enhanced networking ENI, but not avaibleable on all ec2
 - ENI can be attached when EC2 is running, stopped or being lauched
@@ -375,6 +428,7 @@ markmap:
 
 # Security Groups
 ## Security Groups Simplified
+- stateful
 - controle access with EC2
 - Act as virtual firewall
 - on instance level
@@ -460,6 +514,7 @@ markmap:
 - can scale up to petabytes to support thousands of concurrent NFS
 - read after write consistency
 - data is stored across multiple AZs within a region
+- read-after-write consistency
 
 # Amazon FSx for Windows
 
@@ -510,6 +565,7 @@ markmap:
 - SQS queue can be used to store pending db writes
 
 ## RDS Multi-AZ
+- used for disaster recovery
 - primary DB and synchronouly replications in diferent AZ
 - connect to RDS uses DNS address. parmary DB fails, multi-az automaticlly update the DNS to point it to secondary
 - support all DB flavor except aurora, as aurora is complete fault-tolerant
@@ -518,15 +574,15 @@ markmap:
 - backups are taken from the standby
 
 ## RDS Read Replicas
+- for scaling read performance, not for disaster recovery
+- if master failed, no automatic failover.
+- auto backups must be enabled to use read replicas
 - up to 5 read replications
 - supported for all DB on top of RDS
 - use DNS address for connection. write is received by master also passed onto secondary
-- if master failed, no automatic failover.
 - promote read replicas to be their own production db
 - read replica has its own DNS endpoint
-- auto backups must be enabled to use read replicas
 - works with Multi-AZ, or have it in an entirely separate region
--
 
 ## RDS Backups
 - Automate backups
@@ -534,7 +590,7 @@ markmap:
   - freely up to the size of your actual db
   - removed when DB is removed
 - DB snapshots
-  - done manully
+  - done manually
   - will retain enven the original RDS is terminated
 - Restore a DB via automated backups or DB snapshots results an entirely new RDS instance
 
@@ -573,7 +629,6 @@ markmap:
 - from 10GB to 128TB, Computing up to 32vCPUs and 244GB memeory
 
 ## Aurora Serverless
-
 - for infrequent, intermittent, and unpredictable workloads
 - pay per invocation
 
@@ -585,7 +640,14 @@ markmap:
 
 # DynamoDB
 ## DynamoDB Simplifed
-
+- stored on SSD
+- spread across 3 geo distinct dc
+- eventually consistent reads(default)
+- strongly consistent read
+- full backup at any time
+- no impact on performance or availability
+- point-in-time recovery
+  - in last 35 days, latest 5 minutes in the past
 
 ## DynamoDB Accelerator (DAX)
 - managed, HA, in-memory cache
@@ -600,6 +662,22 @@ markmap:
 ## DynamoDB Global Tables
 - multi-region, multi-master
 - replication latency < 1 second
+
+# Amazon DocumentDB
+- MongoDB
+
+# AWS Keyspaces
+- Cassandra
+
+# AWS Neptune
+- graph database
+
+# AWS Quantum Ledger Database (QLDB)
+- immutable databases
+
+# AWS Timestream
+- to store a large amount of time-series data for analysis
+
 
 # Redshift
 
@@ -773,11 +851,18 @@ markmap:
 ## Network Access Control Lists
 - stateless
 - start from the lowest number to high number
+- each rule can either allow or deny traffic
 - default NACL allow all inbound and outbound traffic
 - new NACL default rules deny all in and out
+- use it to block IP address
 
 ## NAT instances vs. NAT Gateways
+- NAT Gateways
+   - no security group need
+   - automatically get public ip assigned
 - internet gatway is for instance in VPC that already have a public ip
+- one IgW for each VPC
+- one NAT for each AZ
 - NAT is for instance in VPC that don't have a public ip
 - NAT instances
   - individual EC2 instance
@@ -798,7 +883,7 @@ markmap:
 - can be used to configure access to AWS endpoint
 
 ## Internet Gateway
-- each ec2 instance doesn't know it's public ip, only igw knows it's public ip
+- each ec2 instance doesn't know it's public ip, only IGW knows it's public ip
 - one IGW per VPC
 
 ## Virtual Private Networks (VPNs)
@@ -811,6 +896,7 @@ markmap:
 - connect VPC to supported AWS service, traffic stay within AWS
 - Gateway Endpoint
    - point traffic to a route table entry
+   - currently support S3  and DynamoDB
    - free
 - Interface Endpoints
   - it uses AWS PrivateLink and private IP
@@ -828,7 +914,15 @@ markmap:
   - overlapping cidr  block
   - transitive peering
   - edge to edge routing
-- can peer across regions
+- can peer across regions or accounts
+
+## Transit Gateway
+- to use route table to limit how VPCs talk to one another
+- iwht with Direct Connect as well as VPN connection
+- support IP multicast
+
+## VPN hub
+- office in one city to talk to office in another city via VPN
 
 ## VPC flow log
 - capture ip info for all traffic flowing in and out of VPC
@@ -952,7 +1046,7 @@ markmap:
 - accoutn management service
 ## Key Details
 - root account to manage billing, separate accounts to deploy resource
--centrally govern envrionment
+- centrally govern envrionment
 - Organizational Units (OU) to group accounts
 - Attach policies to OU
 - Service Control Policies (SCP) to restrict access to certain services
@@ -1013,6 +1107,9 @@ markmap:
 
 # AWS Config
 - assess, audit, and evaluate the configurations of your AWS resources
+
+# AWS Wavelength
+- increasing app speed at edge using mobile networks
 
 # Mindmap
 
