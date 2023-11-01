@@ -690,7 +690,7 @@ markmap:
 - for OLAP
 - add remove nodes on the fly
 - replication to different region
-- HA cluster requires 3 copies of your data, one in redshit, other in S3
+- HA cluster requires 3 copies of your data, one in redshift, other in S3
 - billed for 
   - computing nodes hours
   - backups
@@ -705,6 +705,10 @@ markmap:
 
 ## Redshift Enhanced VPC Routing
 -  force all COPY and UNLOAD traffic between cluster and data in VPC
+
+# EMR
+- made up EC2
+- Apache Hadoop and Apache Spark
 
 # ElastiCache
 ## ElastiCache Simplified
@@ -746,7 +750,11 @@ markmap:
  - URL -> AWS resource
 - PTP
   - IPv4 -> hostname
-- health checks to send sns
+
+## Health Checks
+- can be associated with DNS records
+- if record failed health check, it will be removed from route53 until it passes the health check
+
 
 ## Route53 Routing Policies
 - Simple
@@ -770,13 +778,14 @@ markmap:
 - regional service
 - it is resolved using DNS
 - inService or OutOfService status, health check
-- 504 error means application issue
+- 504 error means application issue (not responding within the idel timeout period)
 - Application LBs
   - L7
   - HTTP(S)
   - path-based routing
   - host-based routing
   - TLS termination
+  - support sticky sessions on target group level
 - Network LBs
   - L4
   - TCP tracffic
@@ -801,6 +810,13 @@ markmap:
   - key changes over time
 - SNI support ALB or CloudFront
 
+## Sticky Session
+- enable your users to sick to the same EC2 instance
+
+## Connection Draining
+- Deregistration Delay
+  - enable it - keep existing conn. open if the EC2 instance becomes unhealthy
+  - disable it - immediately close connection if the EC2 instance becomes unhealthy
 
 # Auto scaling
 ## Key Details
@@ -947,7 +963,7 @@ markmap:
 ## SQS Key Details
 - standard
   - may out of order
-  - delivered at least once
+  - delivered at least once (means it can duplicate message)
 - FIFO
   - guarantee order
   - exactly-once
@@ -1068,8 +1084,12 @@ markmap:
 - no need to create duplicate resources in multiple accounts
 
 # Athena
+- Serverless SQL
 - interactive query service for data stored in S3
-- SQL
+
+# Glue
+- Serverless ETL service
+- it can help create that schema for your data when paired with Athena
 
 # AWS Macie
 - ML-powered data security and privacy service
@@ -1103,13 +1123,45 @@ markmap:
 - fully manage K8s 
 
 # Amazon MQ
-- managed message broker service for Apache ActiveMQ
+- managed messaging broker service
+- Support ActiveMQ and RabbitMQ
 
 # AWS Config
 - assess, audit, and evaluate the configurations of your AWS resources
 
 # AWS Wavelength
 - increasing app speed at edge using mobile networks
+
+# AWS Batch
+- Long-running (>15minutes), batched workload
+- queued workloads
+- on-demand alternative to AWS lambda
+
+# AWS Step Functions
+- coordinate multiple AWS services into serverless workflows
+- up to 1 year
+
+# AWS AppFlow
+- Saas data ingestion service
+- ingest data from external SaaS apps into AWS
+- Bi-directional
+
+# QuickSight
+- Creating a dashboard
+
+# OpenSearch
+- analyzing log files and various documents, especially within an ETL process
+
+# Data Pipeline
+- managed ETL
+- integrate service with within AWS, like RDS, S3, EC2 and EMR
+- Data-driven and task-dependent ETL workload
+
+
+# AWS Managed Streaing for Apache Kafka (MSK)
+- managed service that makes it easy for you to build and run applications that use Apache Kafka to process streaming data
+- you manage data plane operation
+
 
 # Mindmap
 
