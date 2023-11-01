@@ -47,6 +47,9 @@ markmap:
 - Create user account for admin
 - Add users to amdin group
 
+# active directory
+- lift and shift - managed microsfot ad
+- ad is staying on-premises - use ad connector
 
 # Simple Storage Service (S3)
 
@@ -190,6 +193,7 @@ markmap:
   - Enable CloudFront access logs
   - Capture requests that are sent to the cloudFront API
 - Origin Access Identity (OAI) for sharing private content
+- add HTTPS to a static website hosted in S3
 
 ## CloudFront Signed URLs and Signed Cookies
 - Allow you to control who can access your content
@@ -629,6 +633,7 @@ markmap:
 - from 10GB to 128TB, Computing up to 32vCPUs and 244GB memeory
 
 ## Aurora Serverless
+- - on-demand or auto scaling database
 - for infrequent, intermittent, and unpredictable workloads
 - pay per invocation
 
@@ -1056,6 +1061,7 @@ markmap:
 - Resources field is the only mandatory field
 
 # Elastic Beanstalk Simplifed
+- simple solution
 
 # AWS Organization
 ## Simplified
@@ -1066,6 +1072,8 @@ markmap:
 - Organizational Units (OU) to group accounts
 - Attach policies to OU
 - Service Control Policies (SCP) to restrict access to certain services
+- centralized logs
+
 
 # Amazon Cognito
 - Web Identity Federation
@@ -1093,13 +1101,31 @@ markmap:
 
 # AWS Macie
 - ML-powered data security and privacy service
-- discover, classify, and protect sensitive data (PII)
+- discover, classify, and protect sensitive data (PII) in S3
+- Macie alerts
+- HIPAA, GDPR compliance
+- automate remediation action using other aws services
 
 # AWS KMS
+- shared tenancy of underlying hardware
 - managed service that makes it easy for you to create and control the encryption keys used to encrypt your data
+- to control permissions
+  - use key policy
+  - use iam policies in combination with key policy
+  - use grants in combination with the key policy
+
+# CloudHSM
+- dedicated HSM
+- no automatic key roation
+
 
 # AWS Secrets Manager
-- helps you protect secrets needed to access your applications, services, and IT resources
+- store application secrets
+- apps can use secrets manager api
+- easy to roating creds
+
+# parameter store
+
 
 # AWS STS
 - create and provide trusted users with temporary security credentials
@@ -1157,11 +1183,80 @@ markmap:
 - integrate service with within AWS, like RDS, S3, EC2 and EMR
 - Data-driven and task-dependent ETL workload
 
-
 # AWS Managed Streaing for Apache Kafka (MSK)
 - managed service that makes it easy for you to build and run applications that use Apache Kafka to process streaming data
 - you manage data plane operation
 
+# AWS X-Ray
+- used to gain apps insightes using requests and responses of services and functions
+- Traces downstream response time
+
+# AWS AppSync
+- Manage GraphQL
+
+# Shield
+- protects against L3 and L4
+- DDoS
+- free
+- advanced cost 300usd but with dedicated 24/7 reponse team
+
+# AWS Firewall Manager
+- multiple AWS accounts and resouces that need to be secured cetrally
+
+# GuardDuty
+- use ai to learn normal behavior
+- alert you abnormal or malicious behavier
+- monitors logs (CloudTrail, VPC flow, DNS)
+
+# Inspector
+- perform automate vulnerability scans on both EC2 instances (host assessments) and VPCs (network assessments)
+
+# Detective
+- operates across multiple AWS service
+- analyzes the root cause of an event
+
+# Audit Manager
+- continuous and automating auditing reports
+
+# AWS Artifact
+- audit and the need for compliance reports
+
+# Security Hub
+- a single place to view all your security alerts across multiple services and accounts
+
+# Certificate Manager
+- support ELB, CLOUDFRONT API GATEWAY
+- free, auto renew and rotate
+
+# Global Accelerator
+- 2 static IP address
+- avoid IP caching 
+
+# AWS Conifg
+- standarization - a rule need be setup for an account use config to check ofr compliace
+- automate reponse to remediate problems using automation documents
+- one-stop shop to what's changed
+
+# Compute Optimizer
+- generate recommendations on implmenting more accurate compute size
+
+# Trusted Advisor
+- auditing tool
+- use eventbridge to kick off lambda
+
+# AWS Control Tower
+- multi-account env
+- preventive or detective guardrails
+
+# AWS service catalog
+- allow end user to provison pre-approved products and services
+
+# Proton
+- automte provisioning of app stack either container base or sls based
+
+# AWS Health
+- provide notification of both public and account-specif events within AWS
+- hardware maintenance reboots
 
 # Mindmap
 
