@@ -50,6 +50,8 @@ markmap:
 # active directory
 - lift and shift - managed microsfot ad
 - ad is staying on-premises - use ad connector
+- work with hybrid environment
+  - MS AD federation Service (AD FS)
 
 # Simple Storage Service (S3)
 
@@ -99,6 +101,7 @@ markmap:
   - S3 Managed Keys
   - AWS KMS
   - Customer Provided Keys
+  - header x-amz-server-side-encryption 
 - Can enforcing encryption with a bucket policy
 
 ## S3 Versioning
@@ -171,6 +174,8 @@ markmap:
 - existing objects are not replicated automatically
 - Delete markers are not replicated by default
 
+# S3 Notification
+- send notification when certain event happen
 
 # CloudFront
 
@@ -226,6 +231,7 @@ markmap:
 - It connects on-premise enviornments with cloud-based storage
 - File Gateway, Volume Gateway, Tape Gateway
 - S3 is the backend in AWS
+- it runs locally as a VM on-premises
 
 ## Storage Gateway Key Details
 - can either be physical device or VM, act as a bridge
@@ -255,12 +261,14 @@ markmap:
 - Dedicated tenacy means you have exclusive access to physical hardware
 - EC3 VM Import can import existing VMs into AWS as long as those hosts use VMware ESX VMware Workstation, Microsoft Hyper-V, or Citrix Xen
 - User data is for running common automated configuration tasks or scripts
+  - use http://169.254.169.254/latest/user-data to retrieve it
 - By defaults, public IP address of EC2 isntance is released when the instance is stopped
 - use Elastic IP address when static IP address is needed
 - golden image is an AMI that you have fully customized
 - Instance status checks check the helath of the running EC2 server
 - System status check monitor the health of the underlying hyperviosr
 - Stop and start when there is a system status issue.
+- you attach IAM role to EC2 instance, not policy
 
 ## EC2 Instance Pricing
 - On-Demand instances
@@ -329,6 +337,7 @@ markmap:
 - can move an existing instance into a placement group - when they are stopped
 
 ## vCenter on AWS using VMware
+- vmware cloud
 
 ## EC2 Hibernation
 - preserves the in-memory RAM on persistent storage
@@ -363,7 +372,7 @@ markmap:
 - can be attahced to a single EC2
 - snapshots are point-in-time copies of EBS
 - The size and type of EBS volumes can be changed on the fly,
-
+- EBS Multi-Attach allows multiple EC2 attach same EBS volume
 ## SSD vs. HDD
 - SSD
   - built for transactional workloads
@@ -571,7 +580,9 @@ markmap:
 ## RDS Multi-AZ
 - used for disaster recovery
 - primary DB and synchronouly replications in diferent AZ
-- connect to RDS uses DNS address. parmary DB fails, multi-az automaticlly update the DNS to point it to secondary
+- connect to RDS uses DNS address
+- parmary DB fails, multi-az automaticlly update the DNS to point it to secondary
+- failover will take a minue our two
 - support all DB flavor except aurora, as aurora is complete fault-tolerant
 - high availability across az and not regions
 - force failover by rebooting primary instance
@@ -714,6 +725,7 @@ markmap:
 # EMR
 - made up EC2
 - Apache Hadoop and Apache Spark
+- not manage the ETL process by itself
 
 # ElastiCache
 ## ElastiCache Simplified
@@ -941,6 +953,9 @@ markmap:
 - to use route table to limit how VPCs talk to one another
 - iwht with Direct Connect as well as VPN connection
 - support IP multicast
+
+## AWS Direct Connect gateway
+- work with a transit gateway when you need to connect multiple VPCs in the same Region
 
 ## VPN hub
 - office in one city to talk to office in another city via VPN
@@ -1193,6 +1208,8 @@ markmap:
 
 # AWS AppSync
 - Manage GraphQL
+# AWS Firewall Manager
+- multiple AWS accounts and resouces that need to be secured cetrally
 
 # Shield
 - protects against L3 and L4
@@ -1200,13 +1217,11 @@ markmap:
 - free
 - advanced cost 300usd but with dedicated 24/7 reponse team
 
-# AWS Firewall Manager
-- multiple AWS accounts and resouces that need to be secured cetrally
-
 # GuardDuty
 - use ai to learn normal behavior
 - alert you abnormal or malicious behavier
 - monitors logs (CloudTrail, VPC flow, DNS)
+- threat detection service that continuously monitors your AWS accounts and workloads for malicious activity and delivers detailed security findings for visibility and remediation
 
 # Inspector
 - perform automate vulnerability scans on both EC2 instances (host assessments) and VPCs (network assessments)
@@ -1250,6 +1265,8 @@ markmap:
 
 # AWS service catalog
 - allow end user to provison pre-approved products and services
+- cloudformation
+- terraform
 
 # Proton
 - automte provisioning of app stack either container base or sls based
@@ -1257,6 +1274,67 @@ markmap:
 # AWS Health
 - provide notification of both public and account-specif events within AWS
 - hardware maintenance reboots
+
+# DataSync
+- agent-based solution for one-time migrations of files into AWS
+
+# Migration Hub
+- an organizational tool that gives you a way to organize all your steps
+
+# DB Migration Service (DMS)
+- migrate on-premises to the cloud or between different RDS db
+- Can migrate existing data and replicate ongoing changes
+  -  Change Data Capture (CDC)
+- Schema Conversion Tool can convert source database schema to new target schema
+  - can convert rds to non-rds
+
+# Server Migration Service
+- migrate out of DC and into AWS
+
+# Application Discovery Service
+- migrate entire app to the AWS cloud
+- agentless discovery via OVA file deployment to vSphere
+- agent-based discovery for detailed infor
+
+# Application Migration Service
+- automated life-and-shift service to AWS
+- VM to AWS
+- RTO of minutes and RPO of sub-sec
+
+# Pinpoint
+- engage with coustomers
+- mainly for marketing and business
+- with ML model
+
+# Amplify
+- tool for simplifed fron-end web and mobile dev
+# Device Farm
+
+# Comprehend
+- speech to text
+- sentiment analysis
+
+# Kendra
+- use ML to build an intelligent searche service using unstructed text
+# Textract
+# Forecast
+- analyze time-series data and make predictions
+# Rekognition
+- content moderation using AI/ML
+# Fraud Detection Service
+# Transcribe
+- convert video and/or audio to text
+# Lex
+- conversational chatbots
+# Polly
+- text to natrual speech
+# SageMaker
+- ML stuff
+- use EC2 compute instance
+- SageMaker NEO for optimization
+# Translate
+# Elastic Transcoder
+# Kinesis Video Streams
 
 # Mindmap
 
